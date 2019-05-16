@@ -1,0 +1,15 @@
+{
+  "type": "ext",
+  "group": "io.warp10",
+  "artifact": "java-interpreter",
+  "version": "0.0.1",
+  "description": "Execute any Java constructor or method indexed in the JVM",
+  "author": "Jean-Charles Vialatte",
+  "email": "jean-charles.vialatte@senx.io",
+  "license": "Apache-2.0",
+  "git": "",
+  "repoUrl": "",
+  "tags": [
+    ""
+  ]
+}
