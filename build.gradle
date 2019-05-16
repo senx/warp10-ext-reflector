@@ -67,7 +67,7 @@ project.ext.bintrayLicenses = [ 'LICENSE' ]
 
 
 project.ext.group = 'io.warp10'
-project.ext.name = 'java-interpreter'
+project.ext.name = 'java-reflector'
 project.ext.uberjar = null != System.getProperty('uberjar')
 project.ext.version = getVersionName('0.0.1') + (project.ext.uberjar ? '-uberjar' : '')
 
@@ -138,8 +138,8 @@ jar {
    //
    // Only consider macros which are in our namespace
    //
-   include 'io.warp10/java-interpreter/*.mc2'
-   include 'io.warp10/java-interpreter/**/*.mc2'
+   include 'io.warp10/java-reflector/*.mc2'
+   include 'io.warp10/java-reflector/**/*.mc2'
   }
   from('.') {
     include 'README.md'
@@ -160,8 +160,8 @@ shadowJar {
    //
    // Only consider macros which are in our namespace
    //
-   include 'io.warp10/java-interpreter/*.mc2'
-   include 'io.warp10/java-interpreter/**/*.mc2'
+   include 'io.warp10/java-reflector/*.mc2'
+   include 'io.warp10/java-reflector/**/*.mc2'
   }
   from('.') {
     include 'README.md'

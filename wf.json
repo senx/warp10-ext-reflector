@@ -1,9 +1,9 @@
 {
   "type": "ext",
   "group": "io.warp10",
-  "artifact": "java-interpreter",
+  "artifact": "java-reflector",
   "version": "0.0.1",
-  "description": "Execute any Java constructor or method indexed in the JVM",
+  "description": "Reflect any Java constructor or method to make them acessible from WarpScript.",
   "author": "Jean-Charles Vialatte",
   "email": "jean-charles.vialatte@senx.io",
   "license": "Apache-2.0",
