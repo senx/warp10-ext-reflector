@@ -3,7 +3,7 @@
   "group": "io.warp10",
   "artifact": "java-reflector",
   "version": "0.0.1",
-  "description": "Reflect any Java constructor or method to make them acessible from WarpScript.",
+  "description": "Reflect any Java constructor or method to make them accessible from WarpScript.",
   "author": "Jean-Charles Vialatte",
   "email": "jean-charles.vialatte@senx.io",
   "license": "Apache-2.0",
