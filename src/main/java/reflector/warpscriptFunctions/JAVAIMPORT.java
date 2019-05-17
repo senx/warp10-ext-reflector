@@ -21,6 +21,8 @@ import io.warp10.script.WarpScriptStack;
 import io.warp10.script.formatted.FormattedWarpScriptFunction;
 import org.reflections.Reflections;
 
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.*;
 
 public class JAVAIMPORT extends FormattedWarpScriptFunction {
@@ -36,7 +38,7 @@ public class JAVAIMPORT extends FormattedWarpScriptFunction {
     getDocstring().append("Add an import statement used by the Java reflector extension.");
 
     args = new ArgumentsBuilder()
-      .addArgument(String.class, PATH, "Path of the class(es) to be imported. Use the symbol * to include every class of a package.")
+      .addArgument(String.class, PATH, "Path of the class(es) to be imported. Use the wildcard * to include every class of a package, or every static method from a class.")
       .build();
   }
 
@@ -48,7 +50,11 @@ public class JAVAIMPORT extends FormattedWarpScriptFunction {
   @Override
   protected WarpScriptStack apply(Map<String, Object> formattedArgs, WarpScriptStack stack) throws WarpScriptException {
     String fullyQualifiedName = (String) formattedArgs.get(PATH);
+
     int delimiter = fullyQualifiedName.lastIndexOf('.');
+    if (-1 == delimiter) {
+      return stack;
+    }
     String suffix = fullyQualifiedName.substring(delimiter + 1);
 
 
@@ -62,26 +68,45 @@ public class JAVAIMPORT extends FormattedWarpScriptFunction {
     if (!suffix.equals("*")) {
 
       //
-      // One fully qualified classname
+      // One fully qualified classname or static method name
       //
 
       rules.put(suffix, fullyQualifiedName);
 
     } else {
 
-      //
-      // Retrieve all classes within package
-      //
+      try {
+        Class clazz = Class.forName(fullyQualifiedName);
 
-      if (-1 == delimiter) {
-        throw new WarpScriptException("The path that is tried to be imported is incorrect. Either use a single fully qualified classname, or 'package.*' to import all classes from 'package'. ");
+        //
+        // Retrieve all static methods
+        //
+
+        Method[] methods = clazz.getMethods();
+        for (Method m: methods) {
+          if (Modifier.isStatic(m.getModifiers())) {
+            rules.put(m.getName(), fullyQualifiedName + "." + m.getName());
+          }
+        }
+
+      } catch (ClassNotFoundException e) {
+
+        //
+        // It is not a class, so it is a package
+        // Retrieve all classes within package
+        //
+
+        if (-1 == delimiter) {
+          throw new WarpScriptException("Incorrect import statement.");
+        }
+
+        String packageName = fullyQualifiedName.substring(0, delimiter);
+        Set<Class<? extends Object>> classes = new Reflections(packageName).getSubTypesOf(Object.class);
+        for (Class clazz : classes) {
+          rules.put(clazz.getSimpleName(), clazz.getName());
+        }
       }
 
-      String packageName = fullyQualifiedName.substring(0, delimiter);
-      Set<Class<? extends Object>> classes = new Reflections(packageName).getSubTypesOf(Object.class);
-      for (Class clazz: classes) {
-        rules.put(clazz.getSimpleName(), clazz.getName());
-      }
     }
 
     return stack;

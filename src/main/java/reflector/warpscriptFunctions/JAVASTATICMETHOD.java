@@ -28,8 +28,7 @@ public class JAVASTATICMETHOD extends FormattedWarpScriptFunction {
 
   private final Arguments args;
 
-  private final static String CLASSNAME = "classname";
-  private final static String METHODNAME = "methodname";
+  private final static String PATH = "path";
   private final static String ARGS = "args";
 
   public JAVASTATICMETHOD(String name) {
@@ -38,8 +37,7 @@ public class JAVASTATICMETHOD extends FormattedWarpScriptFunction {
     getDocstring().append("Invoke a static Java method.");
 
     args = new ArgumentsBuilder()
-      .addArgument(String.class, CLASSNAME, "Classname of the class that has the static method.")
-      .addArgument(String.class, METHODNAME, "Name of the method to invoke.")
+      .addArgument(String.class, PATH, "Fully qualified name, ie *package.class.method*, of the method to invoke. If the class was imported, can be *class.method*. If the method was imported, can be *method*.")
       .addArgument(List.class, ARGS, "List of arguments to pass to the method.")
       .build();
   }
@@ -49,18 +47,56 @@ public class JAVASTATICMETHOD extends FormattedWarpScriptFunction {
     return args;
   }
 
+  /**
+   * From package.class.method, or class.method, or method,
+   * return {package.class, method}
+   *
+   * @param path Input path
+   * @param rules Import rules
+   * @return
+   */
+  protected String[] decompose(String path, Map<String,String> rules) throws WarpScriptException {
+
+    if (null == path) {
+      throw new WarpScriptException("Static method cannot be found");
+    }
+
+    int lastDotIndex = path.lastIndexOf(".");
+    if (-1 == lastDotIndex) {
+
+      return decompose(rules.get(path), rules);
+    }
+
+    String methodName = path.substring(lastDotIndex + 1);
+    String prefix = path.substring(0, lastDotIndex);
+
+    int penultimateDotIndex = prefix.lastIndexOf(".");
+    if (-1 == penultimateDotIndex) {
+
+      prefix = rules.get(prefix);
+      if (null == prefix) {
+        throw new WarpScriptException("Static method cannot be found");
+      }
+    }
+
+    return new String[]{prefix, methodName};
+  }
+
   @Override
   protected WarpScriptStack apply(Map<String, Object> formattedArgs, WarpScriptStack stack) throws WarpScriptException {
-    String classname = (String) formattedArgs.get(CLASSNAME);
-    String methodName = (String) formattedArgs.get(METHODNAME);
+    String path = (String) formattedArgs.get(PATH);
     List args = (List) formattedArgs.get(ARGS);
+
+    String[] arr = decompose(path, (Map) stack.getAttribute(JAVAIMPORT.ATTRIBUTE_JAVAIMPORT_RULES));
+    String className = arr[0];
+    String methodName = arr[1];
 
     Class clazz;
     try {
-      clazz = Class.forName(classname);
+      clazz = Class.forName(className);
 
     } catch (ClassNotFoundException e) {
-      throw new WarpScriptException("The class " + classname + " was not found.");
+      throw new WarpScriptException("The class " + className + " was not found.");
     }
 
     Class[] argTypes = new Class[args.size()];

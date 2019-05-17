@@ -52,6 +52,11 @@ public class JAVANEW extends FormattedWarpScriptFunction {
     String classname = (String) formattedArgs.get(CLASSNAME);
     List args = (List) formattedArgs.get(ARGS);
 
+    Map<String, String> rules = (Map) stack.getAttribute(JAVAIMPORT.ATTRIBUTE_JAVAIMPORT_RULES);
+    if (null != rules) {
+      classname = rules.get(classname);
+    }
+
     Class clazz;
     try {
       clazz = Class.forName(classname);
