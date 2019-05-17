@@ -110,6 +110,8 @@ dependencies {
   //
   //compile group: 'GROUP', name: 'NAME', version: 'VERSION'
 
+  compile 'org.reflections:reflections:+'
+
   testCompile'io.warp10:warpscript:+'
   testImplementation 'junit:junit:4.12'
 }

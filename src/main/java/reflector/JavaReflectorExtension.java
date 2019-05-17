@@ -16,6 +16,7 @@
 
 package reflector;
 
+import reflector.warpscriptFunctions.JAVAIMPORT;
 import reflector.warpscriptFunctions.JAVAMETHOD;
 import reflector.warpscriptFunctions.JAVANEW;
 import reflector.warpscriptFunctions.JAVASTATICMETHOD;
@@ -33,6 +34,7 @@ public class JavaReflectorExtension {
     functions.put("JAVANEW", new JAVANEW("JAVANEW"));
     functions.put("JAVAMETHOD", new JAVAMETHOD("JAVAMETHOD"));
     functions.put("JAVASTATICMETHOD", new JAVASTATICMETHOD("JAVASTATICMETHOD"));
+    functions.put("JAVAIMPORT", new JAVAIMPORT("JAVAIMPORT"));
   }
 
   public Map<String, Object> getFunctions() {
