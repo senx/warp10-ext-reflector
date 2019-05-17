@@ -38,7 +38,7 @@ public class JAVANEW extends FormattedWarpScriptFunction {
 
     args = new ArgumentsBuilder()
       .addArgument(List.class, ARGS, "List of arguments to pass to the constructor.")
-      .addArgument(String.class, CLASSNAME, "Classname of the class to instanciate.")
+      .addArgument(String.class, CLASSNAME, "Fully qualified class name, or simple class name if it was imported with JAVAIMPORT.")
       .build();
   }
 
