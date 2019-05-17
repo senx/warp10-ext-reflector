@@ -38,9 +38,9 @@ public class JAVAMETHOD extends FormattedWarpScriptFunction {
     getDocstring().append("Invoke a method of a Java object.");
 
     args = new ArgumentsBuilder()
+      .addArgument(List.class, ARGS, "List of arguments to pass to the method.")
       .addArgument(Object.class, INSTANCE, "Instance that invokes the method.")
       .addArgument(String.class, METHODNAME, "Name of the method to invoke.")
-      .addArgument(List.class, ARGS, "List of arguments to pass to the method.")
       .build();
   }
 

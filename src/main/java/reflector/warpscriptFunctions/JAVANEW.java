@@ -37,8 +37,8 @@ public class JAVANEW extends FormattedWarpScriptFunction {
     getDocstring().append("Create a new instance of a Java class, and push it onto the stack.");
 
     args = new ArgumentsBuilder()
-      .addArgument(String.class, CLASSNAME, "Classname of the class to instanciate.")
       .addArgument(List.class, ARGS, "List of arguments to pass to the constructor.")
+      .addArgument(String.class, CLASSNAME, "Classname of the class to instanciate.")
       .build();
   }
 

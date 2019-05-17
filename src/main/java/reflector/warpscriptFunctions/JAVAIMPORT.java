@@ -38,7 +38,7 @@ public class JAVAIMPORT extends FormattedWarpScriptFunction {
     getDocstring().append("Add an import statement used by the Java reflector extension.");
 
     args = new ArgumentsBuilder()
-      .addArgument(String.class, PATH, "Path of the class(es) to be imported. Use the wildcard * to include every class of a package, or every static method from a class.")
+      .addArgument(String.class, PATH, "Path of class(es) or static method(s) to be imported. Use the wildcard * to include every class of a package, or every static method of a class.")
       .build();
   }
 

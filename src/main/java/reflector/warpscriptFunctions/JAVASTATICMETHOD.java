@@ -37,8 +37,8 @@ public class JAVASTATICMETHOD extends FormattedWarpScriptFunction {
     getDocstring().append("Invoke a static Java method.");
 
     args = new ArgumentsBuilder()
-      .addArgument(String.class, PATH, "Fully qualified name, ie *package.class.method*, of the method to invoke. If the class was imported, can be *class.method*. If the method was imported, can be *method*.")
       .addArgument(List.class, ARGS, "List of arguments to pass to the method.")
+      .addArgument(String.class, PATH, "Fully qualified name, ie *package.class.method*, of the method to invoke. If the class was imported, can be *class.method*. If the method was imported, can be *method*.")
       .build();
   }
 
