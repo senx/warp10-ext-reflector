@@ -19,6 +19,7 @@ package reflector.warpscriptFunctions;
 import io.warp10.script.WarpScriptException;
 import io.warp10.script.WarpScriptStack;
 import io.warp10.script.formatted.FormattedWarpScriptFunction;
+import org.apache.commons.lang.reflect.ConstructorUtils;
 
 import java.lang.reflect.Constructor;
 import java.util.List;
@@ -65,24 +66,21 @@ public class JAVANEW extends FormattedWarpScriptFunction {
       throw new WarpScriptException("The class " + classname + " was not found.");
     }
 
-    Constructor constructor;
-    try {
-      Class[] argTypes = new Class[args.size()];
-      for (int i = 0; i < argTypes.length; i++) {
-        argTypes[i] = args.get(i).getClass();
-      }
+    Class[] argTypes = new Class[args.size()];
+    for (int i = 0; i < argTypes.length; i++) {
+      argTypes[i] = args.get(i).getClass();
+    }
 
-      constructor = clazz.getConstructor(argTypes);
-
-    } catch (NoSuchMethodException e) {
-      throw new WarpScriptException("No constructor with this list of arguments were found for class " + classname);
+    Constructor constructor = ConstructorUtils.getMatchingAccessibleConstructor(clazz,argTypes);
+    if (null == constructor) {
+      throw new WarpScriptException("No constructor with this list of arguments was found for class " + classname);
     }
 
     Object newInstance;
     try {
-      newInstance = constructor.newInstance(args);
+      newInstance = constructor.newInstance(args.toArray());
     } catch (Exception e) {
-      throw new WarpScriptException(e.getCause());
+      throw new WarpScriptException("Error when initializing object " + classname + ":" + e.getMessage());
     }
 
     stack.push(newInstance);

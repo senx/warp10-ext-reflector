@@ -19,6 +19,7 @@ package reflector.warpscriptFunctions;
 import io.warp10.script.WarpScriptException;
 import io.warp10.script.WarpScriptStack;
 import io.warp10.script.formatted.FormattedWarpScriptFunction;
+import org.apache.commons.lang.reflect.MethodUtils;
 
 import java.lang.reflect.Method;
 import java.util.List;
@@ -104,18 +105,16 @@ public class JAVASTATICMETHOD extends FormattedWarpScriptFunction {
       argTypes[i] = args.get(i).getClass();
     }
 
-    Method method;
-    try {
-      method = clazz.getClass().getMethod(methodName, argTypes);
-    } catch (NoSuchMethodException e) {
-      throw new WarpScriptException("No method with this list of arguments were found for class " + methodName);
+    Method method = MethodUtils.getMatchingAccessibleMethod(clazz, methodName, argTypes);
+    if (null == method) {
+      throw new WarpScriptException("No method with this list of arguments was found for class " + clazz.getCanonicalName());
     }
 
     Object output;
     try {
-      output = method.invoke(null, args);
+      output = method.invoke(null, args.toArray());
     } catch (Exception e) {
-      throw new WarpScriptException(e.getCause());
+      throw new WarpScriptException("Error when invoking method " + methodName + ":" + e.getMessage());
     }
 
     stack.push(output);

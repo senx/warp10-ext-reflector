@@ -16,6 +16,7 @@
 
 package reflector;
 
+import io.warp10.warp.sdk.WarpScriptExtension;
 import reflector.warpscriptFunctions.JAVAIMPORT;
 import reflector.warpscriptFunctions.JAVAMETHOD;
 import reflector.warpscriptFunctions.JAVANEW;
@@ -24,7 +25,7 @@ import reflector.warpscriptFunctions.JAVASTATICMETHOD;
 import java.util.HashMap;
 import java.util.Map;
 
-public class JavaReflectorExtension {
+public class JavaReflectorExtension extends WarpScriptExtension {
 
   private static final Map functions;
 
