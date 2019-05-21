@@ -2,6 +2,14 @@
 
 Execute any Java constructor or method indexed in the JVM classpath.
 
+#### WARNING
+
+This extension is proposed for testing purposes or to be used on a private Warp10 instance. If you expose it on a public instance, any user would be able to access your system.
+
+SNAPSHOT may not work well with this extension.
+
+#### WarpScript functions
+
 <pre>
 JAVAIMPORT          // add an import statement to be used by the other functions below
 JAVANEW             // creates a new instance of a Java class
