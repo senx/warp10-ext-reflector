@@ -1,0 +1,46 @@
+{
+  "name": "JAVANEW",
+  "since": "2.1",
+  "deprecated": "",
+  "deleted": "",
+  "version": "java-reflector",
+  "tags": [
+    "reflection"
+  ],
+  "desc": "Create a new instance of a Java class, and push it onto the stack.",
+  "sig": [
+    [
+      [
+        "args:LIST",
+        "classname:STRING"
+      ],
+      [
+        "result:java.lang.Object"
+      ]
+    ],
+    [
+      [
+        {
+          "args": "args:LIST",
+          "classname": "classname:STRING"
+        }
+      ],
+      [
+        "result:java.lang.Object"
+      ]
+    ]
+  ],
+  "params": {
+    "args": "List of arguments to pass to the constructor.",
+    "classname": "Fully qualified class name, or simple class name if it was imported with JAVAIMPORT.",
+    "result": "An new instance of the requested Java class."
+  },
+  "related": [
+    "JAVAIMPORT",
+    "JAVAMETHOD",
+    "JAVANEW",
+    "JAVASTATICMETHOD"
+  ],
+  "examples": [],
+  "conf": []
+}

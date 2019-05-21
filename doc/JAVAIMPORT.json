@@ -1,0 +1,43 @@
+{
+  "name": "JAVAIMPORT",
+  "since": "2.1",
+  "deprecated": "",
+  "deleted": "",
+  "version": "java-reflector",
+  "tags": [
+    "reflection"
+  ],
+  "desc": "Add an import statement used by the Java reflector extension.",
+  "sig": [
+    [
+      [
+        "path:STRING"
+      ],
+      [
+        "output:void"
+      ]
+    ],
+    [
+      [
+        {
+          "path": "path:STRING"
+        }
+      ],
+      [
+        "output:void"
+      ]
+    ]
+  ],
+  "params": {
+    "path": "Path of class(es) or static method(s) to be imported. Use the wildcard * to include every class of a package, or every static method of a class.",
+    "output": "No output"
+  },
+  "related": [
+    "JAVAIMPORT",
+    "JAVAMETHOD",
+    "JAVANEW",
+    "JAVASTATICMETHOD"
+  ],
+  "examples": [],
+  "conf": []
+}

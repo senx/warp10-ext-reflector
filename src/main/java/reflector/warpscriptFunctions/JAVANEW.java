@@ -28,6 +28,7 @@ import java.util.Map;
 public class JAVANEW extends FormattedWarpScriptFunction {
 
   private final Arguments args;
+  private final Arguments output;
 
   private final static String CLASSNAME = "classname";
   private final static String ARGS = "args";
@@ -41,12 +42,17 @@ public class JAVANEW extends FormattedWarpScriptFunction {
       .addArgument(List.class, ARGS, "List of arguments to pass to the constructor.")
       .addArgument(String.class, CLASSNAME, "Fully qualified class name, or simple class name if it was imported with JAVAIMPORT.")
       .build();
+
+    output = new ArgumentsBuilder()
+      .addArgument(Object.class, "result", "An new instance of the requested Java class.")
+      .build();
   }
 
   @Override
-  protected Arguments getArguments() {
+  public Arguments getArguments() {
     return args;
   }
+  public Arguments getOutput() { return output; }
 
   @Override
   protected WarpScriptStack apply(Map<String, Object> formattedArgs, WarpScriptStack stack) throws WarpScriptException {

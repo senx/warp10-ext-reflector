@@ -1,0 +1,46 @@
+{
+  "name": "JAVASTATICMETHOD",
+  "since": "2.1",
+  "deprecated": "",
+  "deleted": "",
+  "version": "java-reflector",
+  "tags": [
+    "reflection"
+  ],
+  "desc": "Invoke a static Java method, then push the output on the stack unless output type is void.",
+  "sig": [
+    [
+      [
+        "args:LIST",
+        "path:STRING"
+      ],
+      [
+        "output:java.lang.Object"
+      ]
+    ],
+    [
+      [
+        {
+          "args": "args:LIST",
+          "path": "path:STRING"
+        }
+      ],
+      [
+        "output:java.lang.Object"
+      ]
+    ]
+  ],
+  "params": {
+    "args": "List of arguments to pass to the method.",
+    "path": "Fully qualified name, ie *package.class.method*, of the method to invoke. If the class was imported, can be *class.method*. If the method was imported, can be *method*.",
+    "output": "Output of invoked static method if not void."
+  },
+  "related": [
+    "JAVAIMPORT",
+    "JAVAMETHOD",
+    "JAVANEW",
+    "JAVASTATICMETHOD"
+  ],
+  "examples": [],
+  "conf": []
+}

@@ -28,6 +28,7 @@ import java.util.Map;
 public class JAVASTATICMETHOD extends FormattedWarpScriptFunction {
 
   private final Arguments args;
+  private final Arguments output;
 
   private final static String PATH = "path";
   private final static String ARGS = "args";
@@ -41,11 +42,18 @@ public class JAVASTATICMETHOD extends FormattedWarpScriptFunction {
       .addArgument(List.class, ARGS, "List of arguments to pass to the method.")
       .addArgument(String.class, PATH, "Fully qualified name, ie *package.class.method*, of the method to invoke. If the class was imported, can be *class.method*. If the method was imported, can be *method*.")
       .build();
+
+    output = new ArgumentsBuilder()
+      .addArgument(Object.class, "output", "Output of invoked static method if not void.")
+      .build();
   }
 
   @Override
-  protected Arguments getArguments() {
+  public Arguments getArguments() {
     return args;
+  }
+  public Arguments getOutput() {
+    return output;
   }
 
   /**

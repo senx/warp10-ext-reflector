@@ -1,0 +1,8 @@
+{} 'JAVAMETHOD' 'name' PUT '2.1' 'since' PUT '' 'deprecated' PUT '' 'deleted' PUT 'java-reflector' 'version' PUT [] 'reflection' +! 'tags' PUT 'Invoke%20a%20method%20of%20a%20Java%20object%2C%20then%20push%20the%20output%20on%20the%20stack%20unless%20output%20type%20is%20void.' 'desc' PUT [] [] [] 'instance%3Ajava.lang.Object' +! 'args%3ALIST' +! 'methodname%3ASTRING' +! +! [] 'output%3Ajava.lang.Object' +! +! +! [] [] {} 'instance%3Ajava.lang.Object' 'instance' PUT 'args%3ALIST' 'args' PUT 'methodname%3ASTRING' 'methodname' PUT +! +! [] 'output%3Ajava.lang.Object' +! +! +! 'sig' PUT {} 'Instance%20that%20invokes%20the%20method.' 'instance' PUT 'List%20of%20arguments%20to%20pass%20to%20the%20method.' 'args' PUT 'Name%20of%20the%20method%20to%20invoke.' 'methodname' PUT 'Output%20of%20invoked%20method%20if%20not%20void.' 'output' PUT 'params' PUT [] 'JAVAIMPORT' +! 'JAVAMETHOD' +! 'JAVANEW' +! 'JAVASTATICMETHOD' +! 'related' PUT [] 'examples' PUT [] 'conf' PUT  'infomap' STORE
+<%
+!$infomap INFO
+JAVAMETHOD
+%>
+'macro' STORE
+// Unit tests
+$macro

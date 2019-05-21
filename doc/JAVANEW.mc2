@@ -1,0 +1,8 @@
+{} 'JAVANEW' 'name' PUT '2.1' 'since' PUT '' 'deprecated' PUT '' 'deleted' PUT 'java-reflector' 'version' PUT [] 'reflection' +! 'tags' PUT 'Create%20a%20new%20instance%20of%20a%20Java%20class%2C%20and%20push%20it%20onto%20the%20stack.' 'desc' PUT [] [] [] 'args%3ALIST' +! 'classname%3ASTRING' +! +! [] 'result%3Ajava.lang.Object' +! +! +! [] [] {} 'args%3ALIST' 'args' PUT 'classname%3ASTRING' 'classname' PUT +! +! [] 'result%3Ajava.lang.Object' +! +! +! 'sig' PUT {} 'List%20of%20arguments%20to%20pass%20to%20the%20constructor.' 'args' PUT 'Fully%20qualified%20class%20name%2C%20or%20simple%20class%20name%20if%20it%20was%20imported%20with%20JAVAIMPORT.' 'classname' PUT 'An%20new%20instance%20of%20the%20requested%20Java%20class.' 'result' PUT 'params' PUT [] 'JAVAIMPORT' +! 'JAVAMETHOD' +! 'JAVANEW' +! 'JAVASTATICMETHOD' +! 'related' PUT [] 'examples' PUT [] 'conf' PUT  'infomap' STORE
+<%
+!$infomap INFO
+JAVANEW
+%>
+'macro' STORE
+// Unit tests
+$macro

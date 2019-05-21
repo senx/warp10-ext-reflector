@@ -32,7 +32,9 @@ import java.util.*;
 
 public class JAVAIMPORT extends FormattedWarpScriptFunction {
 
-  private final FormattedWarpScriptFunction.Arguments args;
+  private final Arguments args;
+  private final Arguments output;
+
 
   private final static String PATH = "path";
   public final static String ATTRIBUTE_JAVAIMPORT_RULES = "java.import.rules";
@@ -45,12 +47,17 @@ public class JAVAIMPORT extends FormattedWarpScriptFunction {
     args = new ArgumentsBuilder()
       .addArgument(String.class, PATH, "Path of class(es) or static method(s) to be imported. Use the wildcard * to include every class of a package, or every static method of a class.")
       .build();
+
+    output = new ArgumentsBuilder()
+      .addArgument(void.class, "output", "No output")
+      .build();
   }
 
   @Override
-  protected Arguments getArguments() {
+  public Arguments getArguments() {
     return args;
   }
+  public Arguments getOutput() {return output; }
 
   @Override
   protected WarpScriptStack apply(Map<String, Object> formattedArgs, WarpScriptStack stack) throws WarpScriptException {

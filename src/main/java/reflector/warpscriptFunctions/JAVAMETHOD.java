@@ -28,6 +28,7 @@ import java.util.Map;
 public class JAVAMETHOD extends FormattedWarpScriptFunction {
 
   private final Arguments args;
+  private final Arguments output;
 
   private final static String INSTANCE = "instance";
   private final static String METHODNAME = "methodname";
@@ -43,12 +44,17 @@ public class JAVAMETHOD extends FormattedWarpScriptFunction {
       .addArgument(List.class, ARGS, "List of arguments to pass to the method.")
       .addArgument(String.class, METHODNAME, "Name of the method to invoke.")
       .build();
+
+    output = new ArgumentsBuilder()
+      .addArgument(Object.class, "output", "Output of invoked method if not void.")
+      .build();
   }
 
   @Override
-  protected Arguments getArguments() {
+  public Arguments getArguments() {
     return args;
   }
+  public Arguments getOutput() { return output; }
 
   @Override
   protected WarpScriptStack apply(Map<String, Object> formattedArgs, WarpScriptStack stack) throws WarpScriptException {
