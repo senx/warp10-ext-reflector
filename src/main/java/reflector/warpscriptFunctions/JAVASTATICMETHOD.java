@@ -35,7 +35,7 @@ public class JAVASTATICMETHOD extends FormattedWarpScriptFunction {
   public JAVASTATICMETHOD(String name) {
     super(name);
 
-    getDocstring().append("Invoke a static Java method.");
+    getDocstring().append("Invoke a static Java method, then push the output on the stack unless output type is void.");
 
     args = new ArgumentsBuilder()
       .addArgument(List.class, ARGS, "List of arguments to pass to the method.")
@@ -117,7 +117,9 @@ public class JAVASTATICMETHOD extends FormattedWarpScriptFunction {
       throw new WarpScriptException("Error when invoking method " + methodName + ":" + e.getMessage());
     }
 
-    stack.push(output);
+    if(!method.getReturnType().equals(Void.TYPE)) {
+      stack.push(output);
+    }
 
     return stack;
   }

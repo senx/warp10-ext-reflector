@@ -20,6 +20,11 @@ import io.warp10.script.WarpScriptException;
 import io.warp10.script.WarpScriptStack;
 import io.warp10.script.formatted.FormattedWarpScriptFunction;
 import org.reflections.Reflections;
+import org.reflections.scanners.ResourcesScanner;
+import org.reflections.scanners.SubTypesScanner;
+import org.reflections.util.ClasspathHelper;
+import org.reflections.util.ConfigurationBuilder;
+import org.reflections.util.FilterBuilder;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -57,7 +62,6 @@ public class JAVAIMPORT extends FormattedWarpScriptFunction {
     }
     String suffix = fullyQualifiedName.substring(delimiter + 1);
 
-
     Map<String,String> rules = (Map<String,String>) stack.getAttribute(ATTRIBUTE_JAVAIMPORT_RULES);
 
     if (null == rules) {
@@ -75,8 +79,10 @@ public class JAVAIMPORT extends FormattedWarpScriptFunction {
 
     } else {
 
+      String prefix = fullyQualifiedName.substring(0, delimiter);
+
       try {
-        Class clazz = Class.forName(fullyQualifiedName);
+        Class clazz = Class.forName(prefix);
 
         //
         // Retrieve all static methods
@@ -85,7 +91,7 @@ public class JAVAIMPORT extends FormattedWarpScriptFunction {
         Method[] methods = clazz.getMethods();
         for (Method m: methods) {
           if (Modifier.isStatic(m.getModifiers())) {
-            rules.put(m.getName(), fullyQualifiedName + "." + m.getName());
+            rules.put(m.getName(), prefix + "." + m.getName());
           }
         }
 
@@ -100,10 +106,21 @@ public class JAVAIMPORT extends FormattedWarpScriptFunction {
           throw new WarpScriptException("Incorrect import statement.");
         }
 
-        String packageName = fullyQualifiedName.substring(0, delimiter);
-        Set<Class<? extends Object>> classes = new Reflections(packageName).getSubTypesOf(Object.class);
+        List<ClassLoader> classLoadersList = new LinkedList<ClassLoader>();
+        classLoadersList.add(ClasspathHelper.contextClassLoader());
+        classLoadersList.add(ClasspathHelper.staticClassLoader());
+
+        Reflections reflections = new Reflections(new ConfigurationBuilder()
+          .setScanners(new SubTypesScanner(false), new ResourcesScanner())
+          .setUrls(ClasspathHelper.forClassLoader(classLoadersList.toArray(new ClassLoader[0])))
+          .filterInputsBy(new FilterBuilder().include(FilterBuilder.prefix(prefix))));
+
+        Set<Class<? extends Object>> classes = reflections.getSubTypesOf(Object.class);
+
         for (Class clazz : classes) {
-          rules.put(clazz.getSimpleName(), clazz.getName());
+          if (clazz.getSimpleName().length() > 0) {
+            rules.put(clazz.getSimpleName(), clazz.getName());
+          }
         }
       }
 

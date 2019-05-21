@@ -36,7 +36,7 @@ public class JAVAMETHOD extends FormattedWarpScriptFunction {
   public JAVAMETHOD(String name) {
     super(name);
 
-    getDocstring().append("Invoke a method of a Java object.");
+    getDocstring().append("Invoke a method of a Java object, then push the output on the stack unless output type is void.");
 
     args = new ArgumentsBuilder()
       .addArgument(Object.class, INSTANCE, "Instance that invokes the method.")
@@ -73,7 +73,9 @@ public class JAVAMETHOD extends FormattedWarpScriptFunction {
       throw new WarpScriptException("Error when invoking method " + methodName + ":" + e.getMessage());
     }
 
-    stack.push(output);
+    if(!method.getReturnType().equals(Void.TYPE)){
+      stack.push(output);
+    }
 
     return stack;
   }
