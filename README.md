@@ -6,7 +6,7 @@ Execute any Java constructor or method indexed in the JVM classpath.
 
 This extension is proposed for testing purposes or to be used on a private Warp10 instance. If you expose it on a public instance, any user would be able to access your system.
 
-SNAPSHOT may not work well with this extension.
+`SNAPSHOT` may not work well with this extension.
 
 #### WarpScript functions
 
