@@ -19,6 +19,7 @@ package reflector;
 import io.warp10.WarpConfig;
 import io.warp10.script.MemoryWarpScriptStack;
 import io.warp10.script.WarpScriptLib;
+import io.warp10.script.functions.TYPEOF;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -50,7 +51,7 @@ public class JavaReflectorExtensionTest {
     //
 
     stack.execMulti("[] 'java.util.Date' JAVANEW" + System.lineSeparator() +
-      "TYPEOF 'java.util.Date' == ASSERT");
+      "TYPEOF '" + TYPEOF.typeof(Date.class) + "' == ASSERT");
 
     //
     // 1 argument constructor and 0 argument method call
@@ -60,7 +61,7 @@ public class JavaReflectorExtensionTest {
     int hashFoo = foo.hashCode();
 
     stack.execMulti("[ 1558441090443 ]  'java.util.Date' JAVANEW" + System.lineSeparator() +
-      "DUP TYPEOF 'java.util.Date' == ASSERT" + System.lineSeparator() +
+      "DUP TYPEOF '" + TYPEOF.typeof(Date.class) + "' == ASSERT" + System.lineSeparator() +
       "[] 'hashCode' JAVAMETHOD");
     Assert.assertEquals(stack.pop(),hashFoo);
 
@@ -88,7 +89,7 @@ public class JavaReflectorExtensionTest {
     //
 
     stack.execMulti("[] 'Date' JAVANEW" + System.lineSeparator() +
-      "TYPEOF 'java.util.Date' == ASSERT");
+      "TYPEOF '" + TYPEOF.typeof(Date.class) + "' == ASSERT");
 
     //
     // 1 argument constructor and 0 argument method call
@@ -98,7 +99,7 @@ public class JavaReflectorExtensionTest {
     int hashFoo = foo.hashCode();
 
     stack.execMulti("[ 1558441090443 ]  'Date' JAVANEW" + System.lineSeparator() +
-      "DUP TYPEOF 'java.util.Date' == ASSERT" + System.lineSeparator() +
+      "DUP TYPEOF '" + TYPEOF.typeof(Date.class) + "' == ASSERT" + System.lineSeparator() +
       "[] 'hashCode' JAVAMETHOD");
     Assert.assertEquals(stack.pop(), hashFoo);
 
@@ -124,7 +125,7 @@ public class JavaReflectorExtensionTest {
     //
 
     stack.execMulti("[] 'Date' JAVANEW" + System.lineSeparator() +
-      "TYPEOF 'java.util.Date' == ASSERT");
+      "TYPEOF '" + TYPEOF.typeof(Date.class) + "' == ASSERT");
 
     //
     // 1 argument constructor and 0 argument method call
@@ -134,7 +135,7 @@ public class JavaReflectorExtensionTest {
     int hashFoo = foo.hashCode();
 
     stack.execMulti("[ 1558441090443 ]  'Date' JAVANEW" + System.lineSeparator() +
-      "DUP TYPEOF 'java.util.Date' == ASSERT" + System.lineSeparator() +
+      "DUP TYPEOF '" + TYPEOF.typeof(Date.class) + "' == ASSERT" + System.lineSeparator() +
       "[] 'hashCode' JAVAMETHOD");
     Assert.assertEquals(stack.pop(), hashFoo);
 
