@@ -19,7 +19,9 @@ package reflector;
 import io.warp10.script.WarpScriptLib;
 import io.warp10.script.formatted.RunAndGenerateDocumentationWithUnitTests;
 import org.junit.Test;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Generate .mc2 documentation and run waprscipt unit tests
@@ -31,7 +33,7 @@ public class GenerateDocumentation extends RunAndGenerateDocumentationWithUnitTe
   //
 
   protected boolean WRITE() {
-    return true;
+    return false;
   }
 
   protected String OUTPUT_FOLDER() {
@@ -50,7 +52,7 @@ public class GenerateDocumentation extends RunAndGenerateDocumentationWithUnitTe
   }
 
   //
-  // Register functions
+  // Register extension
   //
 
   static {
@@ -63,7 +65,7 @@ public class GenerateDocumentation extends RunAndGenerateDocumentationWithUnitTe
 
   @Test
   public void generate() throws Exception {
-    protected_generate(new ArrayList<>(JavaReflectorExtension.staticGetFunctions().keySet()));
+    generate(new ArrayList<>(JavaReflectorExtension.staticGetFunctions().keySet()));
   }
 
 }
