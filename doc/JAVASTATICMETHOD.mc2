@@ -1,7 +1,30 @@
-{} 'JAVASTATICMETHOD' 'name' PUT '2.1' 'since' PUT '' 'deprecated' PUT '' 'deleted' PUT 'java-reflector' 'version' PUT [] 'reflection' +! 'tags' PUT 'Invoke%20a%20static%20Java%20method%2C%20then%20push%20the%20output%20on%20the%20stack%20unless%20output%20type%20is%20void.' 'desc' PUT [] [] [] 'args%3ALIST' +! 'path%3ASTRING' +! +! [] 'output%3Ajava.lang.Object' +! +! +! [] [] {} 'args%3ALIST' 'args' PUT 'path%3ASTRING' 'path' PUT +! +! [] 'output%3Ajava.lang.Object' +! +! +! 'sig' PUT {} 'List%20of%20arguments%20to%20pass%20to%20the%20method.' 'args' PUT 'Fully%20qualified%20name%2C%20ie%20*package.class.method*%2C%20of%20the%20method%20to%20invoke.%20If%20the%20class%20was%20imported%2C%20can%20be%20*class.method*.%20If%20the%20method%20was%20imported%2C%20can%20be%20*method*.' 'path' PUT 'Output%20of%20invoked%20static%20method%20if%20not%20void.' 'output' PUT 'params' PUT [] 'JAVAIMPORT' +! 'JAVAMETHOD' +! 'JAVANEW' +! 'JAVASTATICMETHOD' +! 'related' PUT [] 'examples' PUT [] 'conf' PUT  'infomap' STORE
+{
+'name' 'JAVASTATICMETHOD' 
+'since' '2.1' 
+'deprecated' '' 
+'deleted' '' 
+'version' 'all' 
+'tags' [ 'reflection' ] 
+'desc' 'Invoke a static Java method, then push the output on the stack unless output type is void.' 
+'sig' [ [ [ 'path:STRING' 'args:LIST' ] [ 'output:OBJECT' ] ] [ [ {
+'path' 'path:STRING' 
+'args' 'args:LIST' 
+} ] [ 'output:OBJECT' ] ] ] 
+'params' {
+'path' 'Fully qualified name, ie *package.class.method*, of the method to invoke. If the class was imported, can be *class.method*. If the method was imported, can be *method*.' 
+'args' 'List of arguments to pass to the method.' 
+'output' 'Output of invoked static method if not void.' 
+} 
+'related' [ 'JAVAIMPORT' 'JAVAMETHOD' 'JAVANEW' ] 
+'examples' [ ] 
+'conf' [ ] 
+} 'infomap' STORE
 <%
 !$infomap INFO
-JAVASTATICMETHOD
+<%
+'JAVASTATICMETHOD' EVAL
+%>
+<% %> <% %> TRY
 %>
 'macro' STORE
 // Unit tests

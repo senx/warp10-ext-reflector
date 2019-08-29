@@ -16,141 +16,54 @@
 
 package reflector;
 
-import com.geoxp.oss.jarjar.com.google.gson.Gson;
-import com.geoxp.oss.jarjar.com.google.gson.GsonBuilder;
-import com.geoxp.oss.jarjar.com.google.gson.JsonParser;
-import io.warp10.WarpConfig;
 import io.warp10.script.WarpScriptLib;
-import io.warp10.script.formatted.ArgumentSpecification;
-import org.junit.BeforeClass;
+import io.warp10.script.formatted.RunAndGenerateDocumentationWithUnitTests;
 import org.junit.Test;
-import io.warp10.script.formatted.FormattedWarpScriptFunction;
-import io.warp10.script.formatted.FormattedWarpScriptFunction.Arguments;
-
-import java.io.*;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
 
-import static reflector.JavaReflectorExtension.staticGetFunctions;
-import static io.warp10.script.formatted.DocumentationGenerator.*;
-
 /**
- * Generate .mc2 and .json doc files
+ * Generate .mc2 documentation and run waprscipt unit tests
  */
-public class GenerateDocumentation {
+public class GenerateDocumentation extends RunAndGenerateDocumentationWithUnitTests {
 
-  private static final String DOC_HOME = "/home/jc/Projects/2019/java-reflector/doc/";
-  private static String EXT_NAME = "java-reflector";
-  private static List<String> TAGS = new ArrayList<>();
-  static {
-    TAGS.add("reflection");
+  //
+  // Overridden test run parameters
+  //
+
+  protected boolean WRITE() {
+    return true;
   }
-  private static String SINCE = "2.1";
-  private static String DEPRECATED = "";
-  private static String DELETED = "";
-  private static List<String> EXAMPLES = new ArrayList<>();
-  private static List<String> CONF = new ArrayList<>();
 
-  @BeforeClass
-  public static void beforeClass() throws Exception {
-    StringBuilder props = new StringBuilder();
+  protected String OUTPUT_FOLDER() {
+    return "/home/jc/Projects/2019/java-reflector/doc/";
+  }
 
-    props.append("warp.timeunits=us");
-    WarpConfig.setProperties(new StringReader(props.toString()));
+  protected boolean OVERWRITE() {
+    return true;
+  }
+
+  protected List<String> TAGS() {
+    List<String> tags = new ArrayList<>();
+    tags.add("reflection");
+
+    return tags;
+  }
+
+  //
+  // Register functions
+  //
+
+  static {
     WarpScriptLib.register(new JavaReflectorExtension());
   }
 
+  //
+  // Run test
+  //
+
   @Test
   public void generate() throws Exception {
-
-    Map<String, Object> functions = staticGetFunctions();
-    List<String> functionNames = new ArrayList<>(functions.keySet());
-    Collections.sort(functionNames);
-
-    for (String name : functionNames) {
-      Object function = functions.get(name);
-
-      if (function instanceof FormattedWarpScriptFunction) {
-        String doc = "";
-        String mc2 = "";
-
-        List<ArgumentSpecification> output =  new ArrayList<>();
-
-        if (Arrays.stream(function.getClass().getMethods()).anyMatch(f -> f.getName().equals("getOutput"))) {
-
-          Object out = function.getClass().getMethod("getOutput").invoke(function);
-          if (out instanceof Arguments) {
-            output = ((Arguments) out).getArgsCopy();
-          }
-        }
-
-        if (0 == output.size()) {
-          output.add(new ArgumentSpecification(Object.class, "result", "No documentation provided."));
-        }
-
-        List<String> examples = new ArrayList<>(EXAMPLES);
-
-        if (Arrays.stream(function.getClass().getMethods()).anyMatch(f -> f.getName().equals("getExamples"))) {
-
-          Object exs = function.getClass().getMethod("getExamples").invoke(function);
-          if (exs instanceof List) {
-            examples.addAll((List) exs);
-          }
-        }
-
-        List<String> related = getRelatedClasses(function.getClass().getClassLoader(), function.getClass().getPackage().getName());
-        related.remove("");
-
-        try {
-          doc = (new Gson()).toJson(generateInfo((FormattedWarpScriptFunction) function, SINCE, DEPRECATED, DELETED, EXT_NAME,
-            TAGS, related, EXAMPLES, CONF, output));
-          doc = new GsonBuilder().setPrettyPrinting().create().toJson(new JsonParser().parse(doc));
-
-          mc2 = generateWarpScriptDoc((FormattedWarpScriptFunction) function, SINCE, DEPRECATED, DELETED, EXT_NAME,
-            TAGS, related, EXAMPLES, CONF, output);
-        } catch (Exception e) {
-          e.printStackTrace();
-        }
-
-        String path = DOC_HOME + name + ".json";
-        File file = new File(path);
-        if (!file.exists()) {
-          try {
-            Files.write(Paths.get(path), doc.getBytes());
-          } catch (IOException e) {
-            e.printStackTrace();
-          }
-        }
-
-        path = DOC_HOME + name + ".mc2";
-        file = new File(path);
-        if (!file.exists()) {
-          try {
-            Files.write(Paths.get(path), mc2.getBytes());
-          } catch (IOException e) {
-            e.printStackTrace();
-          }
-        }
-      }
-    }
+    protected_generate(new ArrayList<>(JavaReflectorExtension.staticGetFunctions().keySet()));
   }
 
-  private static List<String> getRelatedClasses(ClassLoader cl, String pack) throws Exception{
-
-    String dottedPackage = pack.replaceAll("[/]", ".");
-    List<String> classNames = new ArrayList<>();
-    pack = pack.replaceAll("[.]", "/");
-    URL upackage = cl.getResource(pack);
-
-    DataInputStream dis = new DataInputStream((InputStream) upackage.getContent());
-    String line = null;
-    while ((line = dis.readLine()) != null) {
-      if(line.endsWith(".class")) {
-        classNames.add(Class.forName(dottedPackage+"."+line.substring(0,line.lastIndexOf('.'))).getSimpleName());
-      }
-    }
-    return classNames;
-  }
 }

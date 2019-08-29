@@ -1,7 +1,28 @@
-{} 'JAVAIMPORT' 'name' PUT '2.1' 'since' PUT '' 'deprecated' PUT '' 'deleted' PUT 'java-reflector' 'version' PUT [] 'reflection' +! 'tags' PUT 'Add%20an%20import%20statement%20used%20by%20the%20Java%20reflector%20extension.' 'desc' PUT [] [] [] 'path%3ASTRING' +! +! [] 'output%3Avoid' +! +! +! [] [] {} 'path%3ASTRING' 'path' PUT +! +! [] 'output%3Avoid' +! +! +! 'sig' PUT {} 'Path%20of%20class%28es%29%20or%20static%20method%28s%29%20to%20be%20imported.%20Use%20the%20wildcard%20*%20to%20include%20every%20class%20of%20a%20package%2C%20or%20every%20static%20method%20of%20a%20class.' 'path' PUT 'No%20output' 'output' PUT 'params' PUT [] 'JAVAIMPORT' +! 'JAVAMETHOD' +! 'JAVANEW' +! 'JAVASTATICMETHOD' +! 'related' PUT [] 'examples' PUT [] 'conf' PUT  'infomap' STORE
+{
+'name' 'JAVAIMPORT' 
+'since' '2.1' 
+'deprecated' '' 
+'deleted' '' 
+'version' 'all' 
+'tags' [ 'reflection' ] 
+'desc' 'Add an import statement used by the Java reflector extension.' 
+'sig' [ [ [ 'path:STRING' ] [ 'output:VOID' ] ] [ [ {
+'path' 'path:STRING' 
+} ] [ 'output:VOID' ] ] ] 
+'params' {
+'path' 'Path of class(es) or static method(s) to be imported. Use the wildcard * to include every class of a package, or every static method of a class.' 
+'output' 'No output' 
+} 
+'related' [ 'JAVAMETHOD' 'JAVANEW' 'JAVASTATICMETHOD' ] 
+'examples' [ ] 
+'conf' [ ] 
+} 'infomap' STORE
 <%
 !$infomap INFO
-JAVAIMPORT
+<%
+'JAVAIMPORT' EVAL
+%>
+<% %> <% %> TRY
 %>
 'macro' STORE
 // Unit tests
