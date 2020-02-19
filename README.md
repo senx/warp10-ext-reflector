@@ -4,7 +4,7 @@ Execute any Java constructor or method indexed in the JVM classpath.
 
 #### WARNING
 
-This extension is proposed for testing purposes or to be used on a private Warp10 instance. If you expose it on a public instance, any user would be able to access your system.
+This extension is proposed for testing purposes or to be used on a private Warp10 instance. Expose it on a public instance only with caution.
 
 Note that `SNAPSHOT` won't be able to work on arbitrary objects you bring to WarpScript with functions of this extension.
 
@@ -32,8 +32,6 @@ $date [ NOW ] 'setTime' JAVAMETHOD
 
 #### Documentation
 
-The documentation is located under `doc/`.
-
-To install an extension, see the [Warp 10 documentation](https://www.warp10.io/content/03_Documentation/07_Extending_Warp_10/03_Extensions).
+Available on [warpfleet](https://warpfleet.senx.io/browse/io.warp10/warp10-ext-forecasting) or under `src/main/warpscript/io.warp10/java-reflector/doc/`.
 
 Contact: jean-charles.vialatte@senx.io

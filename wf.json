@@ -7,7 +7,7 @@
   "author": "Jean-Charles Vialatte",
   "email": "jean-charles.vialatte@senx.io",
   "license": "Apache-2.0",
-  "git": "",
+  "git": "https://github.com/senx/warp10-ext-reflector",
   "repoUrl": "",
   "tags": [
     "reflection"
