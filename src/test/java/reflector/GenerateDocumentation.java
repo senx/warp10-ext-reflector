@@ -18,6 +18,7 @@ package reflector;
 
 import io.warp10.script.WarpScriptLib;
 import io.warp10.script.formatted.RunAndGenerateDocumentationWithUnitTests;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -63,6 +64,7 @@ public class GenerateDocumentation extends RunAndGenerateDocumentationWithUnitTe
   // Run test
   //
 
+  @Ignore
   @Test
   public void generate() throws Exception {
     generate(new ArrayList<>(JavaReflectorExtension.staticGetFunctions().keySet()));

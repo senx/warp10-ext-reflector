@@ -32,6 +32,6 @@ $date [ NOW ] 'setTime' JAVAMETHOD
 
 #### Documentation
 
-Available on [warpfleet](https://warpfleet.senx.io/browse/io.warp10/warp10-ext-forecasting) or under `src/main/warpscript/io.warp10/java-reflector/doc/`.
+Available on [warpfleet](https://warpfleet.senx.io/browse/io.warp10/warp10-ext-reflector) or under `src/main/warpscript/io.warp10/java-reflector/doc/`.
 
 Contact: jean-charles.vialatte@senx.io

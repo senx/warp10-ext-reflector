@@ -38,7 +38,7 @@ public class JavaReflectorExtensionTest {
     props.append("warp.timeunits=us" + System.lineSeparator());
     props.append("warpscript.maxops=100000" + System.lineSeparator());
     props.append("warpscript.maxops.hard=100000");
-    WarpConfig.setProperties(new StringReader(props.toString()));
+    WarpConfig.safeSetProperties(new StringReader(props.toString()));
     WarpScriptLib.register(new JavaReflectorExtension());
   }
 
