@@ -67,7 +67,7 @@ project.ext.bintrayLicenses = [ 'Apache-2.0' ]
 // @see https://docs.gradle.org/current/userguide/signing_plugin.html
 //
 
-project.ext.'signing.gnupg.keyName' = '301800F812A1D6B68972E5D0B82E4344AAD46904'
+project.ext.'signing.gnupg.keyName' = 'insert-name-here'
 
 
 project.ext.group = 'io.warp10'
